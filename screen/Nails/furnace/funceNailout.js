@@ -64,16 +64,16 @@ export default class FurnaceNailsOut extends React.Component{
 
             axios.post("https://highgrip.in/api/FurnaceOut",{data:this.state.inputData,code:"048"})
             .then((response)=>{
-                console.log(response.data);
-            //   if(response.data.sucess){
-            //       this.setState({isLoading:false})
-            //       alert("Data Added Success");
-            //       this.props.navigation.goBack();
+              
+              if(response.data.sucess){
+                  this.setState({isLoading:false})
+                  alert("Data Added Success");
+                  this.props.navigation.goBack();
       
-            //     }else{
-            //         this.setState({isLoading:false})
-            //       alert("Error is Not Proper");
-            //     }
+                }else{
+                    this.setState({isLoading:false})
+                  alert("Error is Not Proper");
+                }
             }).catch(e=>{console.log(e);this.setState({isLoading:false})})
         }else{
             this.setState({isLoading:false})

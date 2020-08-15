@@ -76,25 +76,25 @@ export default class MainpackingDetails extends React.Component{
        
     }
     clickhandler(){
-        // alert("click happend");
-        this.setState({isLoading:true});
+        
+        // this.setState({isLoading:true});
         if(this.state.inputData && this.state.inputData.length){
           if(this.state.slec&& this.state.slec.length){
             if(this.state.slec.length == this.state.inputData.length){
 
-          
+          // console.log(this.state.inputData);
         axios.post("https://highgrip.in/api/InsertPackingOut",{packets:this.state.inputData,id:this.state.id,brand:this.state.slec})
         .then(response=>{
-            // console.log(response.data);
-        if(response.data.sucess){
-          this.setState({isLoading:false})
-            alert("Data Added Success");
-            this.props.navigation.goBack();
+            console.log(response.data);
+        // if(response.data.sucess){
+        //   this.setState({isLoading:false})
+        //     alert("Data Added Success");
+        //     this.props.navigation.goBack();
 
-          }else{
-            this.setState({isLoading:false})
-            alert("Error is Not Proper");
-          }
+        //   }else{
+        //     this.setState({isLoading:false})
+        //     alert("Error is Not Proper");
+        //   }
           
         })
         .catch(e=>{console.log(e);this.setState({isLoading:false})});
