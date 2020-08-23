@@ -24,7 +24,7 @@ export default class CpackingStockDetails extends React.Component{
             const ds=[]
         console.log(responseJson);
                 responseJson.map((item,value)=>{
-                ds.push({key:value,quantity:item.Quantity,material:item.size});
+                ds.push({key:value,quantity:item.Quantity,material:item.size,bag:item.bag});
 
            })
            this.setState({
@@ -52,6 +52,7 @@ export default class CpackingStockDetails extends React.Component{
 
                 <View style={styles.bg}>
                     <Text style={styles.size}>Size</Text>
+                    <Text style={styles.size}>Bag</Text>
                     <Text style={styles.kg}>KG</Text> 
 
                 </View>
@@ -65,6 +66,7 @@ export default class CpackingStockDetails extends React.Component{
                         
                         <View style={styles.tconts}>
                             <Text style={styles.material}>{itmes.item.material}</Text>
+                            <Text style={styles.material}>{parseFloat(itmes.item.bag).toFixed(2)}</Text>
                             <Text style={styles.qut}>{parseFloat(itmes.item.quantity).toFixed(2)}</Text>
                         </View>
                     }
@@ -119,7 +121,7 @@ bg:{
      
 
     size:{
-        padding:7,width:"40%", fontFamily:"serif",textShadowColor:"#000", textShadowColor: 'black',  textShadowOffset: { width: 1, height: 1 },
+        padding:7,width:"30%", fontFamily:"serif",textShadowColor:"#000", textShadowColor: 'black',  textShadowOffset: { width: 1, height: 1 },
                        textShadowRadius: 3, fontSize:18,marginBottom:10,marginRight:10, color:"#fff", fontFamily:"serif",backgroundColor:"#00CCCC",textAlign:"center",
                        borderRadius:3,
                        shadowColor: "#000",
@@ -127,7 +129,7 @@ bg:{
    },
     
    kg:{
-       padding:7,width:"40%", fontFamily:"serif",textShadowColor:"#000", textShadowColor: 'black',  textShadowOffset: { width: 1, height: 1 },
+       padding:7,width:"30%", fontFamily:"serif",textShadowColor:"#000", textShadowColor: 'black',  textShadowOffset: { width: 1, height: 1 },
                       textShadowRadius: 3, fontSize:18,marginBottom:10, color:"#fff", fontFamily:"serif",backgroundColor:"#00CCCC",textAlign:"center",
                       borderRadius:3,
                       shadowColor: "#000",
@@ -135,14 +137,14 @@ bg:{
   },
 
   material:{
-    padding:7,width:"40%", fontFamily:"serif",textShadowColor:"#000", textShadowColor: 'black',  
+    padding:7,width:"30%", fontFamily:"serif",textShadowColor:"#000", textShadowColor: 'black',  
                     fontSize:18,marginBottom:10,marginRight:10,  fontFamily:"serif",borderWidth:1, textAlign:"center",
                    borderRadius:3,
                    
 },
 
 qut:{
-   padding:7,width:"40%", fontFamily:"serif",textShadowColor:"#000", textShadowColor: 'black',  
+   padding:7,width:"30%", fontFamily:"serif",textShadowColor:"#000", textShadowColor: 'black',  
                    fontSize:18,marginBottom:10,  fontFamily:"serif",borderWidth:1, textAlign:"center",
                   borderRadius:3,
                  

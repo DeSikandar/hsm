@@ -66,8 +66,8 @@ export default class JNailstore extends React.Component{
             var _items = dataSource.map((key,value) => {
                 return  <View  key={value} style={styles.bg}>
                         <Text style={{borderWidth:1,alignSelf:"flex-start",padding:10,width:"30%", marginRight:10,textAlign:"center",}} >{key.size}</Text>
-                        <Text style={{borderWidth:1,alignSelf:"center",padding:10,width:"30%", marginRight:10,textAlign:"center",}}>{key.perkg}</Text>
-                        <Text style={{borderWidth:1,padding:10,width:"30%",textAlign:"center",}}>{key.Quantity}</Text>
+                        <Text style={{borderWidth:1,alignSelf:"center",padding:10,width:"30%", marginRight:10,textAlign:"center",}}>{parseFloat(key.bag).toFixed(2)}</Text>
+                        <Text style={{borderWidth:1,padding:10,width:"30%",textAlign:"center",}}>{parseFloat(key.Quantity).toFixed(2)}</Text>
                    
                       
                 </View>

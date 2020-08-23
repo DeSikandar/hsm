@@ -23,7 +23,7 @@ export default class Mpresentstock extends React.Component{
         .then((responseJson)=>{
             const ds=[]
             responseJson.map((item,value)=>{
-                ds.push({key:value,quantity:item.Quantity,material:item.material});
+                ds.push({key:value,quantity:item.Quantity,material:item.material,bag:item.bag});
 
            })
            this.setState({
@@ -51,6 +51,7 @@ export default class Mpresentstock extends React.Component{
 
                 <View style={styles.bg}>
                     <Text style={styles.size}>Size</Text>
+                    <Text style={styles.size}>Bag</Text>
                     <Text style={styles.kg}>KG</Text> 
 
                 </View>
@@ -64,6 +65,7 @@ export default class Mpresentstock extends React.Component{
                         
                         <View style={styles.tcontainer}>
                             <Text style={styles.material}>{itmes.item.material}</Text>
+                    <Text style={styles.material}>{parseFloat(itmes.item.bag).toFixed(2)}</Text>
                             <Text style={styles.qut}>{parseFloat(itmes.item.quantity).toFixed(2)}</Text>
                         </View>
                     }
@@ -114,7 +116,7 @@ text5:{
      
 
     size:{
-        padding:7,width:"40%", fontFamily:"serif",textShadowColor:"#000", textShadowColor: 'black',  textShadowOffset: { width: 1, height: 1 },
+        padding:7,width:"30%", fontFamily:"serif",textShadowColor:"#000", textShadowColor: 'black',  textShadowOffset: { width: 1, height: 1 },
                        textShadowRadius: 3, fontSize:18,marginBottom:10,marginRight:10, color:"#fff", fontFamily:"serif",backgroundColor:"#00CCCC",textAlign:"center",
                        borderRadius:3,
                        shadowColor: "#000",
@@ -122,7 +124,7 @@ text5:{
    },
     
    kg:{
-       padding:7,width:"40%", fontFamily:"serif",textShadowColor:"#000", textShadowColor: 'black',  textShadowOffset: { width: 1, height: 1 },
+       padding:7,width:"30%", fontFamily:"serif",textShadowColor:"#000", textShadowColor: 'black',  textShadowOffset: { width: 1, height: 1 },
                       textShadowRadius: 3, fontSize:18,marginBottom:10, color:"#fff", fontFamily:"serif",backgroundColor:"#00CCCC",textAlign:"center",
                       borderRadius:3,
                       shadowColor: "#000",
@@ -130,14 +132,14 @@ text5:{
   },
 
   material:{
-    padding:7,width:"40%", fontFamily:"serif",textShadowColor:"#000", textShadowColor: 'black',  
+    padding:7,width:"30%", fontFamily:"serif",textShadowColor:"#000", textShadowColor: 'black',  
                     fontSize:18,marginBottom:10,marginRight:10,  fontFamily:"serif",borderWidth:1, textAlign:"center",
                    borderRadius:3,
                    
 },
 
 qut:{
-   padding:7,width:"40%", fontFamily:"serif",textShadowColor:"#000", textShadowColor: 'black',  
+   padding:7,width:"30%", fontFamily:"serif",textShadowColor:"#000", textShadowColor: 'black',  
                    fontSize:18,marginBottom:10,  fontFamily:"serif",borderWidth:1, textAlign:"center",
                   borderRadius:3,
                  

@@ -15,6 +15,7 @@ export default class NailWiredIn extends React.Component{
             inputData:[],
             slec:[],
             inputData1:[],
+            vehical_no:"",
             
         }
     }
@@ -140,26 +141,31 @@ export default class NailWiredIn extends React.Component{
 
       clickhandler(){
           this.setState({isLoading:true})
-          if(this.state.inputData&&this.state.inputData.length){
+          if(this.state.vehical_no){
 
-              axios.post("https://highgrip.in/api/insertNailThik",{data:this.state.inputData,type:this.state.slec,coil:this.state.inputData1})
-              .then((response)=>{
-                //   console.log(response.data);
-                // this.setState({isLoading:false})
-                //  
-                if(response.data.sucess){
-                    this.setState({isLoading:false})
-                    alert("Data Added Success");
-                    this.props.navigation.goBack();
-        
-                  }else{
-                    this.setState({isLoading:false})
-                    alert("Error is Not Proper");
-                  }
-              }).catch(e=>{console.log(e);this.setState({isLoading:false})})
+            if(this.state.inputData&&this.state.inputData.length){
+  
+                axios.post("https://highgrip.in/api/insertNailThik",{data:this.state.inputData,type:this.state.slec,coil:this.state.inputData1,vehical:this.state.vehical_no})
+                .then((response)=>{
+                  //   console.log(response.data);
+                  // this.setState({isLoading:false})
+                  //  
+                  if(response.data.sucess){
+                      this.setState({isLoading:false})
+                      alert("Data Added Success");
+                      this.props.navigation.goBack();
+          
+                    }else{
+                      this.setState({isLoading:false})
+                      alert("Error is Not Proper");
+                    }
+                }).catch(e=>{console.log(e);this.setState({isLoading:false})})
+            }else{
+              this.setState({isLoading:false})
+                alert("please Enter details");
+            }
           }else{
-            this.setState({isLoading:false})
-              alert("please Enter details");
+            alert("Please Enter vehical No.");
           }
 
       }
@@ -198,7 +204,13 @@ export default class NailWiredIn extends React.Component{
                    <Text style={styles.head}>
                    Wired in
                    </Text>
-   
+                   
+                   <View style={{flexDirection:"row"}}>
+                     
+                     <Text style={{alignSelf:"flex-start",marginRight:10,marginTop:10}}>Enter Vehical No.</Text>
+                     <TextInput style={styles.evn} placeholder="Enter vehicle number" onChangeText={(text)=>this.setState({vehical_no:text})} />     
+                     </View>
+
                    <View style={styles.title}> 
                    <Text style={styles.size}>Size</Text>
                    <Text style={styles.type} >Type</Text>
@@ -250,6 +262,19 @@ const styles = StyleSheet.create({
         justifyContent:"center",
         backgroundColor:"#fff"
     },
+    evn:{   
+      padding:5,
+      textAlign:"left",
+      justifyContent:'flex-end', 
+      backgroundColor:"#fff",
+      alignSelf:"flex-end",
+      fontSize:15, 
+      marginBottom:20,
+      fontWeight: "bold",
+      borderRadius:10,   
+      borderWidth:1,                 
+  
+  },
     item:
     {
     width:"80%",

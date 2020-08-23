@@ -66,7 +66,7 @@ export default class ComponentStockList extends React.Component{
             var _items = dataSource.map((key,value) => {
                 return <View  key={value} style={styles.bg}>
                         <Text style={{borderWidth:1,alignSelf:"flex-start",padding:10,width:"30%", marginRight:10,textAlign:"center",}}>{key.size}</Text>
-                        <Text style={{borderWidth:1,alignSelf:"center",padding:10,width:"30%", marginRight:10,textAlign:"center",}}>{key.perbag}</Text>
+                        <Text style={{borderWidth:1,alignSelf:"center",padding:10,width:"30%", marginRight:10,textAlign:"center",}}>{parseFloat(key.bag).toFixed(2)}</Text>
                         <Text style={{borderWidth:1,padding:10,width:"30%",textAlign:"center",}} >{parseFloat(key.Quantity).toFixed(2)}</Text>
                    
                       
@@ -82,7 +82,7 @@ export default class ComponentStockList extends React.Component{
             <View>
                 <View style={styles.bg}>
                     <Text style={styles.size}>Size</Text>
-                    <Text style={styles.bag}>PER / BAG</Text>
+                    <Text style={styles.bag}>BAG</Text>
                     <Text style={styles.tweight}>Twieght</Text>
                    
 

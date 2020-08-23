@@ -16,7 +16,9 @@ export default class tapin extends React.Component{
             slec:[],
             slec1:[],
             inputData:[],
-            color:[]
+            color:[],
+            bill:"",
+            vehicle:"",
         }
     }
     // size,color,bag,barnd 
@@ -159,43 +161,47 @@ export default class tapin extends React.Component{
 
 clickhandler=()=>{
     this.setState({isLoading:true})
-    if(this.state.inputData && this.state.inputData.length){
-        if(this.state.slec&& this.state.slec.length){
 
-            
-            if(this.state.slec.length == this.state.inputData.length){
-        
-                // console.warn(this.state.slec);
-                // console.warn(this.state.inputData);
-                axios.post("https://highgrip.in/api/InsertintoTapin",{brands:this.state.slec,bag:this.state.inputData,color:this.state.slec1})
-                .then(response=>{
-                    // console.log(response.data);
-                    if(response.data.sucess){
-                        this.setState({isLoading:false})
-                        alert("Data Added Success");
-                        this.props.navigation.goBack();
-            
-                      }else{
-                        this.setState({isLoading:false})
-                        alert("Error is Not Proper");
-                      }
-                }).catch(e=>{console.log(e);this.setState({isLoading:false})});
+    if(this.state.bill && this.state.vehicle){
 
-
-
+        if(this.state.inputData && this.state.inputData.length){
+            if(this.state.slec&& this.state.slec.length){
+    
+                
+                if(this.state.slec.length == this.state.inputData.length){
+           
+                    axios.post("https://highgrip.in/api/InsertintoTapin",{brands:this.state.slec,bag:this.state.inputData,color:this.state.slec1,vehicle:this.state.vehicle,bill:this.state.bill})
+                    .then(response=>{
+                        
+                        if(response.data.sucess){
+                            this.setState({isLoading:false})
+                            alert("Data Added Success");
+                            this.props.navigation.goBack();
+                
+                          }else{
+                            this.setState({isLoading:false})
+                            alert("Error is Not Proper");
+                          }
+                    }).catch(e=>{console.log(e);this.setState({isLoading:false})});
+    
+    
+    
+                }else{
+                    this.setState({isLoading:false})
+                    alert("Please Enter Data");
+                }
+    
             }else{
                 this.setState({isLoading:false})
-                alert("Please Enter Data");
+                alert("Please Select Brands");
+    
             }
-
         }else{
             this.setState({isLoading:false})
-            alert("Please Select Brands");
-
+            alert("Please Provide the Weight ");
         }
     }else{
-        this.setState({isLoading:false})
-        alert("Please Provide the Weight ");
+        alert("Enter vehical and bill No.");
     }
 
 }
@@ -241,7 +247,20 @@ clickhandler=()=>{
             return(
                 <View style={styles.conta}>
                 <View  style={styles.heading}>
-                   <Text style={styles.mainheading}  >INNER COVER</Text>
+                   <Text style={styles.mainheading}  >Tap IN </Text>
+
+                   <View style={{flexDirection:"row",}}>
+                     
+                    <Text style={{alignSelf:"flex-start",marginRight:10,marginTop:10,width:110}}>Enter Bill No.</Text>
+                    <TextInput style={styles.evn} placeholder="Enter Bill number" onChangeText={(val)=>this.setState({bill:val})} />     
+                    
+                    </View>
+                    <View style={{flexDirection:"row"}}>
+                     
+                    <Text style={{alignSelf:"flex-start",marginRight:10,marginTop:10,width:110}}>Enter Vehical No.</Text>
+                    <TextInput style={styles.evn} placeholder="Enter vehicle number" onChangeText={(val)=>this.setState({vehicle:val})} />     
+                    
+                    </View>
 
              <View   style={styles.container}>
                     <Text style={styles.mainhead}>SIZE</Text> 
@@ -251,7 +270,7 @@ clickhandler=()=>{
                     <Text style={styles.weight}>Bag</Text> 
                     </View>
                 
-                    <ScrollView height="65%">
+                    <ScrollView height="50%">
                     {_itms}
                     </ScrollView>
                     <View  style={styles.submit}>
@@ -296,21 +315,35 @@ const styles = StyleSheet.create({
         justifyContent:"center",
         backgroundColor:"#fff",
         width:"100%",
-        paddingTop:10,
+        
         
     },
     mainheading:{
         fontSize:25,
         fontFamily:"serif",
-        paddingBottom:20,
+        marginTop:100,
+       
         justifyContent:"center",
         alignSelf:"center",
         textShadowColor:"#ff0000", 
         textShadowColor: 'black', 
         textShadowOffset: { width: -1, height: 0 },
         textShadowRadius: 3,
-        marginTop:10,  
+         
         fontWeight: '400',
+    }, evn:{   
+        padding:5,
+        textAlign:"left",
+        justifyContent:'flex-end', 
+        backgroundColor:"#fff",
+        alignSelf:"flex-end",
+        fontSize:15, 
+        marginBottom:20,
+        fontWeight: "bold",
+        borderRadius:10,   
+        borderWidth:1,   
+        width:160,              
+    
     },
     mainhead:{
         alignSelf:"flex-start",padding:7,width:"18%", fontFamily:"serif",textShadowColor:"#000", textShadowColor: 'black',  textShadowOffset: { width: 1, height: 1 },
@@ -339,7 +372,7 @@ const styles = StyleSheet.create({
     submit:{
         width:"95%",
         fontSize:20, 
-        marginTop:10,
+        marginBottom:10,
         backgroundColor:"#fff", 
         color:"#fff",
         alignSelf:"center",        

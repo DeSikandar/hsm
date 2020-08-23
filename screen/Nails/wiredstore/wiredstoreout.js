@@ -13,7 +13,8 @@ export default class Wiredstoreout extends React.Component{
             thik:[],
             isLoading:true,
             inputData:[],
-            slec:[]
+            slec:[],
+            slec1:[]
 
             
         }
@@ -69,8 +70,7 @@ export default class Wiredstoreout extends React.Component{
       }
 
       getvalue=(value,id)=>{
-        // this.refs.picker._reactInternalInstance._renderedComponent._instance.setState({ initialSelectedIndex: id, id });
-      
+       
         let brandsarr=this.state.slec;
         let chck=false;
         if(brandsarr.length!==0){
@@ -101,17 +101,52 @@ export default class Wiredstoreout extends React.Component{
     }
 
 
+    getvalue1=(value,id)=>{
+       
+        let brandsarr=this.state.slec1;
+        let chck=false;
+        if(brandsarr.length!==0){
+            brandsarr.forEach(element=>{
+                if(element.size==id){
+                    element.value=value;
+                    chck=true;
+                }
+            });
+        }
+        if(chck){
+            let nesds=[]
+            brandsarr.map(valu=>{
+                if(valu.value!==null){
+                                nesds.push({'value':valu.value,'size':valu.size})
+                        }
+                })
+            this.setState({
+            slec1: nesds
+            });
+        }
+        else{
+            brandsarr.push({'value':value,'size':id});
+            this.setState({
+                slec1:brandsarr
+            })
+        }
+    }
+
+
 
       clickhandler(){
           this.setState({isLoading:true})
        
         if(this.state.inputData&&this.state.inputData.length){
             if(this.state.slec&& this.state.slec.length){
+                
                 if(this.state.slec.length==this.state.inputData.length){
+                    if(this.state.slec.length==this.state.slec1.length){
 
-                    axios.post("https://highgrip.in/api/Wiredout",{kg:this.state.inputData,w:this.state.slec})
+                    
+                    axios.post("https://highgrip.in/api/Wiredout",{kg:this.state.inputData,w:this.state.slec,code:this.state.slec1})
                     .then((response)=>{
-                        console.log(response.data);
+                        // console.log(response.data);
                       if(response.data.sucess){
                           this.setState({isLoading:false})
                           alert("Data Added Success");
@@ -122,7 +157,10 @@ export default class Wiredstoreout extends React.Component{
                           alert("Error is Not Proper");
                         }
                     }).catch(e=>{console.log(e);this.setState({isLoading:false})})
-
+                }else{
+                    this.setState({isLoading:false})
+                    alert("Please provide proper details");
+                }
                 }else{
                     this.setState({isLoading:false})
                     alert("Please provide proper details");
@@ -152,12 +190,22 @@ export default class Wiredstoreout extends React.Component{
                 <View key={val.id} style={styles.bg} >
                     <Text style={styles.inthiknesh}>{val.thiknesh}</Text>
                     
-                    <View style={{borderWidth:1,alignSelf:"flex-start",width:"33%", marginRight:10, height:"75%",}}>
+                    <View style={{borderWidth:1,alignSelf:"flex-start",width:"30%", marginRight:10, height:"75%",}}>
                     <RNPickerSelect  style={pickerStyle} 
                         onValueChange={(value) =>this.getvalue(value,val.id)}
                         items={[
                             { label: 'plan', value: 'plan' },
                             { label: 'grue', value: 'grue' },
+                          
+                        ]}
+                    />
+                    </View>
+                    <View style={{borderWidth:1,alignSelf:"flex-start",width:"30%", marginRight:10, height:"75%",}}>
+                    <RNPickerSelect  style={pickerStyle} 
+                        onValueChange={(value) =>this.getvalue1(value,val.id)}
+                        items={[
+                            { label: 'nail', value: '048' },
+                            { label: 'screw', value: '018' },
                           
                         ]}
                     />
@@ -177,6 +225,7 @@ export default class Wiredstoreout extends React.Component{
                 <View style={styles.title}> 
                 <Text style={styles.thickness}>Size</Text>
                 <Text style={styles.weight}>Type</Text>
+                <Text style={styles.weight}>To</Text>
                 <Text style={styles.to}>Coil</Text>
               
                 </View>
@@ -249,25 +298,25 @@ const styles = StyleSheet.create({
        
     },
 
-    inthiknesh:{borderWidth:1,alignSelf:"flex-start",color:"#fff",padding:10,width:"30%", marginRight:10, color:"#000",textAlign:"center",},
-    inweight:{borderWidth:1,alignSelf:"flex-start",color:"#fff",padding:10,width:"29%", height:"75%", color:"#000",textAlign:"center",},
+    inthiknesh:{borderWidth:1,alignSelf:"flex-start",color:"#fff",padding:10,width:"20%", marginRight:10, color:"#000",textAlign:"center",},
+    inweight:{borderWidth:1,alignSelf:"flex-start",color:"#fff",padding:10,width:"20%", height:"75%", color:"#000",textAlign:"center",},
         
     thickness:{
-        alignSelf:"flex-start",padding:7,width:"32%", fontFamily:"serif",textShadowColor:"#000", textShadowColor: 'black',  textShadowOffset: { width: 1, height: 1 },
+        alignSelf:"flex-start",padding:7,width:"20%", fontFamily:"serif",textShadowColor:"#000", textShadowColor: 'black',  textShadowOffset: { width: 1, height: 1 },
                         textShadowRadius: 3, fontSize:18,marginRight:10,marginBottom:10, color:"#fff", fontFamily:"serif",backgroundColor:"#00CCCC",textAlign:"center",
                         borderRadius:3,
                         shadowColor: "#000",
                         shadowOffset: {	width: 0,	height: 2,},shadowOpacity: 0.25,shadowRadius: 3.84,elevation: 5,
     }, 
     weight:{
-        alignSelf:"flex-start",padding:7,width:"33%", fontFamily:"serif",textShadowColor:"#000", textShadowColor: 'black',  textShadowOffset: { width: 1, height: 1 },
+        alignSelf:"flex-start",padding:7,width:"30%", fontFamily:"serif",textShadowColor:"#000", textShadowColor: 'black',  textShadowOffset: { width: 1, height: 1 },
                         textShadowRadius: 3, fontSize:18,marginRight:10,marginBottom:10, color:"#fff", fontFamily:"serif",backgroundColor:"#00CCCC",textAlign:"center",
                         borderRadius:3,
                         shadowColor: "#000",
                         shadowOffset: {	width: 0,	height: 2,},shadowOpacity: 0.25,shadowRadius: 3.84,elevation: 5,
     },  
     to:{
-         padding:7,width:"30%", fontFamily:"serif",textShadowColor:"#000", textShadowColor: 'black',  textShadowOffset: { width: 1, height: 1 },
+         padding:7,width:"20%", fontFamily:"serif",textShadowColor:"#000", textShadowColor: 'black',  textShadowOffset: { width: 1, height: 1 },
                         textShadowRadius: 3, fontSize:18,marginBottom:10, color:"#fff", fontFamily:"serif",backgroundColor:"#00CCCC",textAlign:"center",
                         borderRadius:3,
                         shadowColor: "#000",
